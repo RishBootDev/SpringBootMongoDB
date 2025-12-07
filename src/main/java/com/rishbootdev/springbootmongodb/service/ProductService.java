@@ -1,7 +1,8 @@
-package com.rishbootdev.springbootmongodb.service.impl;
+package com.rishbootdev.springbootmongodb.service;
 
 import com.rishbootdev.springbootmongodb.entity.Product;
 import com.rishbootdev.springbootmongodb.repository.ProductRepository;
+import com.rishbootdev.springbootmongodb.service.impl.ProductServiceInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProductService implements ProductServiceInterface{
+public class ProductService implements ProductServiceInterface {
 
     private final ProductRepository repo;
 

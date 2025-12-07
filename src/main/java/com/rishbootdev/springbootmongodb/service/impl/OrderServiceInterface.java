@@ -20,5 +20,5 @@ public interface OrderServiceInterface {
     List<Order> findByStatusAndQuantityLessThan(OrderStatus status,int quantity);
     List<Order> findFirstByStatusOrderByCreatedAtDesc(OrderStatus status);
     List<Order> findOrdersByStatusAndPrices(OrderStatus status,double minPrice);
-
+    List<Order> findOrdersInCityWithoutProducts(String city);
 }

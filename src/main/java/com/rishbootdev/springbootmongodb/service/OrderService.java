@@ -6,7 +6,6 @@ import com.rishbootdev.springbootmongodb.entity.enums.OrderStatus;
 import com.rishbootdev.springbootmongodb.repository.OrderRepository;
 import com.rishbootdev.springbootmongodb.repository.ProductRepository;
 import com.rishbootdev.springbootmongodb.service.impl.OrderServiceInterface;
-import com.rishbootdev.springbootmongodb.service.impl.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -70,6 +69,11 @@ public class OrderService implements OrderServiceInterface {
     @Override
     public List<Order> findOrdersByStatusAndPrices(OrderStatus status, double minPrice) {
         return repository.findOrdersByStatusAndPrices(status,minPrice);
+    }
+
+    @Override
+    public List<Order> findOrdersInCityWithoutProducts(String city) {
+        return repository.findOrdersInCityWithoutProducts(city);
     }
 
     @Override

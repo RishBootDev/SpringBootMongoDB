@@ -101,4 +101,9 @@ public class OrderController {
     public ResponseEntity<Order> placeOrder(@RequestBody PlaceOrderRequest req){
         return ResponseEntity.ok(service.placeOrder(req.getOrder(),req.getIds()));
     }
+
+    @GetMapping("/city/{city}")
+    public ResponseEntity<List<Order>> findOrdersInCityWithoutProducts(@PathVariable String city){
+        return ResponseEntity.ok(service.findOrdersInCityWithoutProducts(city));
+    }
 }

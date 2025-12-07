@@ -1,7 +1,7 @@
 package com.rishbootdev.springbootmongodb.controllers;
 
 import com.rishbootdev.springbootmongodb.entity.Product;
-import com.rishbootdev.springbootmongodb.service.impl.ProductService;
+import com.rishbootdev.springbootmongodb.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

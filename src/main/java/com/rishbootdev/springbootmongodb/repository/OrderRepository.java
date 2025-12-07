@@ -25,4 +25,9 @@ public interface OrderRepository extends MongoRepository<Order,String> {
 
     @Query(value = "{ 'address.city' : ?0 }", fields = "{ '_id': 1, 'quantity': 1 }")
     List<Order> findByCity(String city);
+
+    //projection in spring data mongodb
+    @Query(value="{ 'address.city':  ?0}",
+    fields = "{'products':  0}")
+    List<Order> findOrdersInCityWithoutProducts(String city);
 }
