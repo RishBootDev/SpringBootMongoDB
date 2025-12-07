@@ -7,6 +7,9 @@ import com.rishbootdev.springbootmongodb.repository.OrderRepository;
 import com.rishbootdev.springbootmongodb.repository.ProductRepository;
 import com.rishbootdev.springbootmongodb.service.impl.OrderServiceInterface;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +21,8 @@ public class OrderService implements OrderServiceInterface {
     private final OrderRepository repository;
     private final ProductService productService;
     private final ProductRepository productRepository;
+    private final MongoTemplate mongoTemplate;
+    private Query query;
 
     @Override
     public Order create(Order order) {
@@ -90,5 +95,24 @@ public class OrderService implements OrderServiceInterface {
     public void delete(String id) {
         getById(id);
         repository.deleteById(id);
+    }
+
+    public List<Order> getOrdersByStatusAndPrice(OrderStatus status,double price){
+
+        query=new Query(
+                Criteria.where("status").is(status)
+                        .and("totalPrice").gte(price)
+        );
+
+        return mongoTemplate.find(query,Order.class);
+    }
+    public List<Order> getOrdersByTotalPriceOrStatus(OrderStatus status,double totalPrice){
+        query=new Query(
+                new Criteria().orOperator(
+                        Criteria.where("status").is(status)
+                                ,Criteria.where("totalPrice").lte(totalPrice)
+                )
+        );
+        return mongoTemplate.find(query,Order.class);
     }
 }
