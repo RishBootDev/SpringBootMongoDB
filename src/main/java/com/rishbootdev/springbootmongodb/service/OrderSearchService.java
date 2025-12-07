@@ -3,6 +3,7 @@ package com.rishbootdev.springbootmongodb.service;
 
 import com.rishbootdev.springbootmongodb.dto.OrderSearchCriteria;
 import com.rishbootdev.springbootmongodb.entity.Order;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +17,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class OrderSearchService {
-    @Autowired
-    private MongoTemplate mongoTemplate;
+
+    private final MongoTemplate mongoTemplate;
 
     public List<Order> searchOrders(OrderSearchCriteria searchCriteria) {
         Query query = new Query();
