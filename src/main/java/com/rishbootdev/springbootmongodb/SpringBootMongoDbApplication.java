@@ -10,4 +10,5 @@ public class SpringBootMongoDbApplication {
         SpringApplication.run(SpringBootMongoDbApplication.class, args);
     }
 
+
 }
