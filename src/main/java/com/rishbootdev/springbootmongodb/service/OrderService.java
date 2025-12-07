@@ -1,9 +1,12 @@
 package com.rishbootdev.springbootmongodb.service;
 
 import com.rishbootdev.springbootmongodb.entity.Order;
+import com.rishbootdev.springbootmongodb.entity.Product;
 import com.rishbootdev.springbootmongodb.entity.enums.OrderStatus;
 import com.rishbootdev.springbootmongodb.repository.OrderRepository;
+import com.rishbootdev.springbootmongodb.repository.ProductRepository;
 import com.rishbootdev.springbootmongodb.service.impl.OrderServiceInterface;
+import com.rishbootdev.springbootmongodb.service.impl.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,8 @@ import java.util.List;
 public class OrderService implements OrderServiceInterface {
 
     private final OrderRepository repository;
+    private final ProductService productService;
+    private final ProductRepository productRepository;
 
     @Override
     public Order create(Order order) {
@@ -67,6 +72,16 @@ public class OrderService implements OrderServiceInterface {
         return repository.findOrdersByStatusAndPrices(status,minPrice);
     }
 
+    @Override
+    public Order placeOrder(Order order, List<String> productIds) {
+
+        List<Product> products=productIds.stream().map((productId)-> productService.getProductById(productId))
+                        .toList();
+        order.setStatus(OrderStatus.PROCESSING);
+        order.setProducts(products);
+        return repository.save(order);
+
+    }
     @Override
     public void delete(String id) {
         getById(id);

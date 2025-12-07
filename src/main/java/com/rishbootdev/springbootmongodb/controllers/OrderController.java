@@ -1,5 +1,6 @@
 package com.rishbootdev.springbootmongodb.controllers;
 
+import com.rishbootdev.springbootmongodb.dto.PlaceOrderRequest;
 import com.rishbootdev.springbootmongodb.entity.Order;
 import com.rishbootdev.springbootmongodb.entity.enums.OrderStatus;
 import com.rishbootdev.springbootmongodb.service.OrderService;
@@ -94,5 +95,10 @@ public class OrderController {
     public ResponseEntity<List<Order>> findOrderByStatusAndPrices(@RequestParam OrderStatus status,
                                                                   @RequestParam double minPrice){
         return ResponseEntity.ok(service.findOrdersByStatusAndPrices(status,minPrice));
+    }
+
+    @PostMapping("/placeOrder")
+    public ResponseEntity<Order> placeOrder(@RequestBody PlaceOrderRequest req){
+        return ResponseEntity.ok(service.placeOrder(req.getOrder(),req.getIds()));
     }
 }
