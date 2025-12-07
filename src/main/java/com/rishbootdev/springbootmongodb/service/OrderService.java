@@ -1,6 +1,7 @@
 package com.rishbootdev.springbootmongodb.service;
 
 import com.rishbootdev.springbootmongodb.entity.Order;
+import com.rishbootdev.springbootmongodb.entity.enums.OrderStatus;
 import com.rishbootdev.springbootmongodb.repository.OrderRepository;
 import com.rishbootdev.springbootmongodb.service.impl.OrderServiceInterface;
 import lombok.RequiredArgsConstructor;
@@ -42,9 +43,28 @@ public class OrderService implements OrderServiceInterface {
     }
 
     @Override
+    public List<Order> findByStatus(OrderStatus status) {
+        return repository.findByStatus(status);
+    }
+
+    @Override
+    public List<Order> findByTotalPriceGreaterThan(Double price) {
+        return repository.findByTotalPriceGreaterThan(price);
+    }
+
+    @Override
+    public List<Order> findByStatusAndQuantityLessThan(OrderStatus status, int quantity) {
+        return repository.findByStatusAndQuantityLessThan(status,quantity);
+    }
+
+    @Override
+    public List<Order> findFirstByStatusOrderByCreatedAtDesc(OrderStatus status) {
+        return repository.findFirstByStatusOrderByCreatedAtDesc(status).stream().toList();
+    }
+
+    @Override
     public void delete(String id) {
         getById(id);
         repository.deleteById(id);
     }
-
 }

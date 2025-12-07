@@ -1,6 +1,7 @@
 package com.rishbootdev.springbootmongodb.controllers;
 
 import com.rishbootdev.springbootmongodb.entity.Order;
+import com.rishbootdev.springbootmongodb.entity.enums.OrderStatus;
 import com.rishbootdev.springbootmongodb.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -63,5 +64,29 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .build();
         }
+    }
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<Order>> findByStatus(@PathVariable OrderStatus status){
+        return ResponseEntity.ok(service.findByStatus(status));
+    }
+    @GetMapping("findByTotalPriceGreaterThan/{price}")
+    public ResponseEntity<List<Order>> findByTotalPriceGreaterThan(@PathVariable Double price){
+        return ResponseEntity.ok(service.findByTotalPriceGreaterThan(price));
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<Order>> findByStatusAndQuantityLessThan(
+            @RequestParam OrderStatus status,
+            @RequestParam int quantity) {
+
+        return ResponseEntity.ok(service.findByStatusAndQuantityLessThan(status, quantity));
+    }
+
+    @GetMapping("/latest")
+    public ResponseEntity<List<Order>> findFirstByStatusOrderByCreatedAtDesc(
+            @RequestParam OrderStatus status) {
+
+        return ResponseEntity.ok(service.findFirstByStatusOrderByCreatedAtDesc(status));
     }
 }
