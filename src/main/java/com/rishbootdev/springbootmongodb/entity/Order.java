@@ -35,7 +35,7 @@ public class Order {
     @Indexed
     private LocalDateTime updatedAt;
 
-    private Address address;   // this is know as the embedding
+    private Address address;   // this is knows as the embedding
 
     @DBRef(lazy=true)
     @JsonIgnore
