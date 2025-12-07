@@ -89,4 +89,10 @@ public class OrderController {
 
         return ResponseEntity.ok(service.findFirstByStatusOrderByCreatedAtDesc(status));
     }
+
+    @GetMapping("/statusAndPrice")
+    public ResponseEntity<List<Order>> findOrderByStatusAndPrices(@RequestParam OrderStatus status,
+                                                                  @RequestParam double minPrice){
+        return ResponseEntity.ok(service.findOrdersByStatusAndPrices(status,minPrice));
+    }
 }

@@ -17,4 +17,5 @@ public interface OrderServiceInterface {
     List<Order> findByTotalPriceGreaterThan(Double price);
     List<Order> findByStatusAndQuantityLessThan(OrderStatus status,int quantity);
     List<Order> findFirstByStatusOrderByCreatedAtDesc(OrderStatus status);
+    List<Order> findOrdersByStatusAndPrices(OrderStatus status,double minPrice);
 }

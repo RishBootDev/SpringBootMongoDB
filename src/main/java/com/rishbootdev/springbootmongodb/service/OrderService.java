@@ -63,6 +63,11 @@ public class OrderService implements OrderServiceInterface {
     }
 
     @Override
+    public List<Order> findOrdersByStatusAndPrices(OrderStatus status, double minPrice) {
+        return repository.findOrdersByStatusAndPrices(status,minPrice);
+    }
+
+    @Override
     public void delete(String id) {
         getById(id);
         repository.deleteById(id);
